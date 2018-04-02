@@ -119,7 +119,7 @@ MIDDLEWARE = [
 ROLLBAR_ACCESS_TOKEN = os.environ.get('ROLLBAR_ACCESS_TOKEN')
 
 if ROLLBAR_ACCESS_TOKEN is not None:
-    MIDDLEWARE_CLASSES += ('rollbar.contrib.django.middleware.RollbarNotifierMiddleware',)
+    MIDDLEWARE += ('rollbar.contrib.django.middleware.RollbarNotifierMiddleware',)
     ROLLBAR = {
         'access_token': ROLLBAR_ACCESS_TOKEN,
         'environment': 'development' if DEBUG else 'production',
