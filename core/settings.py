@@ -30,10 +30,10 @@ CACHES = {
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-COMPRESS_OFFLINE = True
+COMPRESS_OFFLINE = False
 COMPRESS_ENABLED = True
 COMPRESS_PRECOMPILERS = (
     ('text/x-sass', 'sass {infile} {outfile}'),
@@ -96,14 +96,25 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-MIDDLEWARE_CLASSES = (
+#Using middleware style below to fix error AttributeError: 'WSGIRequest' object has no attribute 'user'
+# MIDDLEWARE_CLASSES = (
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# )
+
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
+
 
 ROLLBAR_ACCESS_TOKEN = os.environ.get('ROLLBAR_ACCESS_TOKEN')
 
@@ -120,7 +131,13 @@ ROOT_URLCONF = 'core.urls'
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-DATABASES = {'default':dj_database_url.config()}
+DATABASES = {
+	#'default':dj_database_url.config()
+	'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+	}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -195,5 +212,5 @@ SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 # if you run on Heroku you don't need to set this
-STREAM_API_KEY = ''
-STREAM_API_SECRET = ''
+STREAM_API_KEY = 'mhe8djmaxhtz'
+STREAM_API_SECRET = 'psxxker6t2hpqacznbe96k9s9p56tb63h4gukdzc6wr6nr82z4tmwuc9gbus85bd'

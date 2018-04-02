@@ -1,6 +1,6 @@
 from __future__ import print_function
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import Client
 from django.test.testcases import TestCase
 from core.models import Follow

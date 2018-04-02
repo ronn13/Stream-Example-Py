@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^auto_follow/$',
         views.auto_follow, name='auto_follow'),
     # the admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^auth/', include('django.contrib.auth.urls')),
     url(r'^robots.txt$', TemplateView.as_view(template_name='core/robots.txt',

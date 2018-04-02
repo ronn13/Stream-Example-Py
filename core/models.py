@@ -14,7 +14,7 @@ class BaseModel(models.Model):
 
 
 class Item(BaseModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
     image = models.ImageField(upload_to='items')
     source_url = models.TextField()
     message = models.TextField(blank=True, null=True)
@@ -22,10 +22,10 @@ class Item(BaseModel):
 
 
 class Pin(Activity, BaseModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    item = models.ForeignKey(Item)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
+    item = models.ForeignKey(Item, models.CASCADE)
     influencer = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='influenced_pins')
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name='influenced_pins')
     message = models.TextField(blank=True, null=True)
 
     @classmethod
@@ -56,9 +56,9 @@ class Follow(Activity, BaseModel):
     the target would be Alex.
     '''
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='following_set')
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name='following_set')
     target = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='follower_set')
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name='follower_set')
 
     @classmethod
     def activity_related_models(cls):

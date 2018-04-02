@@ -28,15 +28,15 @@ def trending(request):
     '''
     The most popular items
     '''
-    if not request.user.is_authenticated() and not settings.USE_AUTH:
-        # hack to log you in automatically for the demo app
-        admin_user = authenticate(username='admin', password='admin')
-        auth_login(request, admin_user)
+    # if not request.user.is_authenticated and not settings.USE_AUTH:
+        # # hack to log you in automatically for the demo app
+        # admin_user = authenticate(username='admin', password='admin')
+        # auth_login(request, admin_user)
 
     # show a few items
     context = {}
     popular = Item.objects.all()[:50]
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         did_i_pin_items(request.user, popular)
     context['popular'] = popular
     response = render(request, 'core/trending.html', context)
